@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: test-simplepv
-  namespace: test-csi1
+  namespace: test-csi
   labels:
     name: pv-simplepv-test
 spec:
@@ -14,7 +14,7 @@ spec:
   csi:
     nodePublishSecretRef:
       name: "mapr-ticket-secret"
-      namespace: "test-csi1"
+      namespace: "test-csi"
     driver: com.mapr.csi-kdf
     volumeHandle: test-simplepv
     volumeAttributes:
@@ -28,7 +28,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: test-pv
-  namespace: test-csi1
+  namespace: test-csi
 spec:
   securityContext:
     runAsUser: 1000
@@ -55,7 +55,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: test-simplepvc
-  namespace: test-csi1
+  namespace: test-csi
 spec:
   accessModes:
     - ReadWriteOnce
