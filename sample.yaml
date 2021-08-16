@@ -1,0 +1,64 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: test-simplepv
+  namespace: test-csi1
+  labels:
+    name: pv-simplepv-test
+spec:
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  capacity:
+    storage: 5Gi
+  csi:
+    nodePublishSecretRef:
+      name: "mapr-ticket-secret"
+      namespace: "test-csi1"
+    driver: com.mapr.csi-kdf
+    volumeHandle: test-simplepv
+    volumeAttributes:
+      volumePath: "/"
+      cluster: "microedge.v0020.gselr5.local"
+      cldbHosts: "10.1.20.134"
+      securityType: "secure"
+      platinum: "true"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pv
+  namespace: test-csi1
+spec:
+  securityContext:
+    runAsUser: 1000
+    fsGroup: 2000
+  containers:
+  - name: busybox
+    image: busybox
+    args:
+    - sleep
+    - "1000000"
+    resources:
+      requests:
+        memory: "2Gi"
+        cpu: "500m"
+    volumeMounts:
+    - mountPath: /mapr
+      name: maprflex
+  volumes:
+    - name: maprflex
+      persistentVolumeClaim:
+        claimName: test-simplepvc
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: test-simplepvc
+  namespace: test-csi1
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5G
