@@ -1,0 +1,129 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name:  volume_input
+  namespace: test-csi
+  labels:
+    name: volume_input
+spec:
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  capacity:
+    storage: 5Gi
+  csi:
+    nodePublishSecretRef:
+      name: "mapr-ticket-secret"
+      namespace: "test-csi"
+    driver: com.mapr.csi-kdf
+    volumeHandle: volume_input
+    volumeAttributes:
+      volumePath: "/inputs"
+      cluster: "edge.v0020.gselr5.local"
+      cldbHosts: "10.1.20.50"
+      securityType: "secure"
+      platinum: "true"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name:  volume_model
+  namespace: test-csi
+  labels:
+    name: volume_model
+spec:
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  capacity:
+    storage: 5Gi
+  csi:
+    nodePublishSecretRef:
+      name: "mapr-ticket-secret"
+      namespace: "test-csi"
+    driver: com.mapr.csi-kdf
+    volumeHandle: volume_model
+    volumeAttributes:
+      volumePath: "/models"
+      cluster: "edge.v0020.gselr5.local"
+      cldbHosts: "10.1.20.50"
+      securityType: "secure"
+      platinum: "true"
+---
+ apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name:  volume_archive
+  namespace: test-csi
+  labels:
+    name: volume_archive
+spec:
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  capacity:
+    storage: 5Gi
+  csi:
+    nodePublishSecretRef:
+      name: "mapr-ticket-secret"
+      namespace: "test-csi"
+    driver: com.mapr.csi-kdf
+    volumeHandle: volume_archive
+    volumeAttributes:
+      volumePath: "/archive"
+      cluster: "edge.v0020.gselr5.local"
+      cldbHosts: "10.1.20.50"
+      securityType: "secure"
+      platinum: "true"
+--
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name:  volume_telemetry
+  namespace: test-csi
+  labels:
+    name: volume_telemetry
+spec:
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  capacity:
+    storage: 5Gi
+  csi:
+    nodePublishSecretRef:
+      name: "mapr-ticket-secret"
+      namespace: "test-csi"
+    driver: com.mapr.csi-kdf
+    volumeHandle: volume_telemetry
+    volumeAttributes:
+      volumePath: "/telemetry"
+      cluster: "edge.v0020.gselr5.local"
+      cldbHosts: "10.1.20.50"
+      securityType: "secure"
+      platinum: "true"
+--
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name:  volume_outliers
+  namespace: test-csi
+  labels:
+    name: volume_outliers
+spec:
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  capacity:
+    storage: 5Gi
+  csi:
+    nodePublishSecretRef:
+      name: "mapr-ticket-secret"
+      namespace: "test-csi"
+    driver: com.mapr.csi-kdf
+    volumeHandle: volume_outliers
+    volumeAttributes:
+      volumePath: "/outliers"
+      cluster: "edge.v0020.gselr5.local"
+      cldbHosts: "10.1.20.50"
+      securityType: "secure"
+      platinum: "true"
